@@ -75,19 +75,19 @@ Although it's only possible for a doctor to select ONE product at the moment, I 
 Additionally, to account for a future where we would need to audit which products have been shipped to which hospital, I created an in-memory data store to keep track of order data. 
 
 ## Outstanding Items
-There are definitely a few UI things I'd still like to clean up:
+There are definitely a few UI issues I'd still like to clean up:
 
 1) Given that a user will presumably not be operating out of more than 1 clinic/hospital (at least very often), I would want to preserve the user's hospital selection from previous orders
-2) Right now, when a user submits an order, I'm using jquery to reset the form data. I'm okay with this since the state of the app's child components is not changing on "submit", but nonetheless I'd like to clean this up. 
-3) Even for v1, I would have preferred to have provided the user with a time estimate on their delivery - even if they're unable to see more granular status updated
+2) Right now, when a user submits an order, I'm using jquery to reset the form data. I'm okay with this since the state of the app's child components is not changing on "submit", but nonetheless this could be improved
+3) Even for v1, I would have preferred to have provided the user with a time estimate on their delivery - even if they're unable to see more granular status updates
 4) Right now, as mentioned, ONE user can single-handedly cause a particular product to go out of stock. From an ethical standpoint, I'd want to put a cap on how much of a given product a user can order. However I'd need to spend more time thinking through the underlying logic (e.g. "a user can select up to 5 units of a given product if Zipline has over 20 units in inventory")
 
 In addition, while I DID play around with various stubbed order data, I would want to create robust unit tests for the `createPackage` function to ensure that it's working as expected. 
 
 ## Next Steps
-1) Multiple product functionality - In my mind, the first priority is to get doctors the supplies they need 
-2) Order Tracking + Transparency - Once doctor's are able to order the supplies they need as easily as possible, the next area of focus would be to build out the order tracking functionality. 
-3) Data persistence/Auditing - Lastly, would build out a route/controller to pull delivery data by hospital 
+1) Multiple product functionality - In my mind, the first priority is to get doctors (and ultimately patients) the supplies they need as quickly and as efficiently as possible
+2) Order Tracking + Transparency - Once doctors are able to order the supplies they need as easily as possible, the next area of focus would be to build out the order tracking functionality. 
+3) Data persistence/Auditing - Lastly, I would build out a route/controller to pull delivery data by hospital 
 
 ## Extras
-In case you're curious, the todo.txt file provides a bit more insight into how I approached this exercise from an implementation standpoint. 
+In case you're curious, the todo.txt file provides a bit more insight into how I broke this problem down from an implementation standpoint. 
