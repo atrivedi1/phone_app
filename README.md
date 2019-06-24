@@ -46,10 +46,10 @@ For v1 of this app, I decided to focus on the Order UI in particular. Currently 
 ### General
 Although it may be a bit overkill for the purposes of v1, I wanted to separate concerns as much as possible in my application design - so as to ensure a solid foundation for the future. As such, the app contains:
 
-1) A folder for helper functions in both the /server and /src folders
+1) A folder for helper functions in both the `/server` and `/src` folders
 2) A routes folder on the backend, broken down thematically in case we need to eventually add additional routes for the `/inventory`, `/hospital`, and `/order` endpoints. 
  - NOTE: to distinguish between the concerns of the user vs. those of Zipline, I decided to route requests to the client-side `/order` endpoint to the `/flight` endpoint on the backend
-3) A controllers folder on the backend to house the "business logic" corresponding to each endpoint
+3) A `/controllers` folder on the backend to house the "business logic" corresponding to each endpoint
 4) A separate folder for the database (DB). Eventually, this could contain separate files for each DB model
 
 ### Client-side
