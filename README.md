@@ -1,5 +1,5 @@
 # Zipline Order Tracking App
-Zipline is a full-service logistics platform that leverages autonomous flying vehicles to provide rural hospitals and clinics with live-saving medical supplies (such as blood, vaccines etc).
+Zipline is a full-service logistics platform that leverages autonomous flying vehicles to provide rural hospitals and clinics with life-saving medical supplies (such as blood, vaccines etc).
 
 This app is the beginning implementation of a customer-facing web application for doctors and clinicians that will ultimately serve 3 functions:
 
