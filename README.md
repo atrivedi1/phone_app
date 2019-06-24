@@ -16,7 +16,7 @@ As of 6/23/2019, this app has the following basic functionality:
 3) Stores order information (in-memory) for future audits
 
 ## Screenshots
-![App Screenshot](https://cl.ly/5c91f7131187)
+https://cl.ly/5c91f7131187
 
 ## Technology Used
 1) ReactJS 
@@ -34,7 +34,7 @@ As of 6/23/2019, this app has the following basic functionality:
   - `npm run start-server` 
   - `npm run start-client`
 
-##v1 Design/Implementation Considerations
+## v1 Design/Implementation Considerations
 For v1 of this app, I decided to focus on the Order UI in particular. Currently the UI fulfills the following requirements:
 
 1) Allows a doctor to choose a destination hospital
@@ -43,7 +43,7 @@ For v1 of this app, I decided to focus on the Order UI in particular. Currently 
 4) Does NOT allow a doctor to place an order for out-of-stock items
 5) Does NOT require the doctor to manually split their order based on weight requirements
 
-###General
+### General
 Although it may be a bit overkill for the purposes of v1, I wanted to separate concerns as much as possible in my application design - so as to ensure a solid foundation for the future. As such, the app contains:
 
 1) A folder for helper functions in both the /server and /src folders
@@ -52,7 +52,7 @@ Although it may be a bit overkill for the purposes of v1, I wanted to separate c
 3) A controllers folder on the backend to house the "business logic" corresponding to each endpoint
 4) A separate folder for the database (DB). Eventually, this could contain separate files for each DB model
 
-###Client-side
+### Client-side
 Given that these orders are oftentimes urgent, and every second matters, I wanted to make sure that users don't spend unecessary time inputting "invalid" quantities for a given product OR selecting a product that is currently out of stock. Thus:
 
 1) I decided to use dropdown lists vs. open-ended inputs (NOTE: for v1, I decided to stack the inputs visually, however that would obviously change when accounting for multiple products)
@@ -63,7 +63,7 @@ Given that these orders are oftentimes urgent, and every second matters, I wante
 
 In addition, it's worth noting, that I decided to use a functional pattern for the `OrderForm` and `Notification` components since they are used solely for templating. 
 
-###Server-side
+### Server-side
 Although it's only possible for a doctor to select ONE product at the moment, I was very much thinking about the "mulitple product" use case when designing the backend as well: 
 
 1) The `createPackage` method in `/server/controllers/flight.js` takes a greedy approach to filling packages for a given order:
@@ -74,7 +74,7 @@ Although it's only possible for a doctor to select ONE product at the moment, I 
 
 Additionally, to account for a future where we would need to audit which products have been shipped to which hospital, I created an in-memory data store to keep track of order data. 
 
-##Outstanding Items
+## Outstanding Items
 There are definitely a few UI things I'd still like to clean up:
 
 1) Given that a user will presumably not be operating out of more than 1 clinic/hospital (at least very often), I would want to preserve the user's hospital selection from previous orders
@@ -84,10 +84,10 @@ There are definitely a few UI things I'd still like to clean up:
 
 In addition, while I DID play around with various stubbed order data, I would want to create robust unit tests for the `createPackage` function to ensure that it's working as expected. 
 
-##Next Steps
+## Next Steps
 1) Multiple product functionality - In my mind, the first priority is to get doctors the supplies they need 
 2) Order Tracking + Transparency - Once doctor's are able to order the supplies they need as easily as possible, the next area of focus would be to build out the order tracking functionality. 
 3) Data persistence/Auditing - Lastly, would build out a route/controller to pull delivery data by hospital 
 
-##Extras
+## Extras
 In case you're curious, the todo.txt file provides a bit more insight into how I approached this exercise from an implementation standpoint. 
