@@ -1,0 +1,55 @@
++identify mvp uses cases x
+ -focus on orders/one order
+ -mvp use cases: 
+   -doctor selects hospital/inventory/quantity
+   -if product out of supply, app doesn't allow doctor to choose product
+   -doctor should only be able to select available quantity of a given product
+   -any time order is made successfully, inventory/quantities updated on backend
+     -if order requires splitting (i.e. above 1.8kg then split on backend automatically)
+    *-if order requires multiple zips --> estimated time should be based on number of zips (*will come back to if have time*)
+   -when order made successfully, in memory db updated as well
+
++mvp client-side routes x 
+   -GET /hospital x 
+   -GET /inventory x 
+   -POST /order x 
+
++identify tech to be used x
+   -node + react (since ultimately app will need to have a trackingView + orderForm)
+
++design considerations x 
+   -may want to create a separate file that acts as an in-memory data store for orders by hospital
+
++come up with basic file structure x 
+   -react components x 
+   -route files x 
+   -controllers x
+
++hello world on front-end x 
++add basic form to orderform component on front-end x
++wire up frontend to send requests to backend x
++wire up backend to simulator x
++get hospital/inventory data from simulator + send to front-end x
++render hospital/inventory info in order form component on frontend x
+
++add ui for ONE product x 
+   -for v1, let doctors select any quantity up to max remaining x 
+
++wire up orderForm/child components to main app component 
+  -click handlers x 
+  -should update state based off selections/deslections x 
+
++handle order submission (i.e. wire up front end to back end) x 
+  -create order route x 
+  -link order route to flight controller x 
+  -handle order processing x 
+    -including breaking order into different packages x 
+  -add order to database x 
+  -return updated order id + package ids to client x 
+
++notify doctor if order is sent successfully or not x  
++ensure that app inputs are reset after order is placed successfully x
++notify doctor if nest inventory is all out x
+
+
+
