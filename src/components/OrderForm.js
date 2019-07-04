@@ -1,20 +1,6 @@
 import React from 'react';
-import helpers from './helpers';
-import ProductSelectionInput from './ProductSelectionInput'
-
-function renderHospitals(hospitals) {
-  return helpers.generateOptionsTemplate(hospitals);
-} 
-
-// PLACEHOLER/TEMPLATE FOR MULTIPLE PRODUCT USE CASE
-// function renderProductSelectionInputs(selectionInputData) {
-//   console.log("rendering product selection inputs");
-//   return selectionInputData.map((inputData) => {
-//     return (
-//       <ProductSelectionInput />
-//     )
-//   })
-// }
+import ProductQuantitySelectionModule from './ProductQuantitySelectionModule'
+import HospitalSelector from './HospitalSelector';
 
 function OrderForm(props) {
   let { hospitals, 
@@ -34,22 +20,13 @@ function OrderForm(props) {
         onSubmit={(e) => {submitOrder(e)}}
       >
         <h3 className="Form_header">PLACE ORDER</h3>
-        <label 
-          className="Form_Label" 
-          htmlFor="select_hospital"
-        >
-          Hospital 
-        </label>
         
-        <select id="select_hospital" 
-          className="Form_Input"
-          required 
-          onChange={(e) => {selectHospital(e.target.value)}}
-        >
-          {renderHospitals(hospitals)}
-        </select>
+        <HospitalSelector 
+          hospitals={hospitals}
+          selectHospital={selectHospital}
+        />
 
-        <ProductSelectionInput 
+        <ProductQuantitySelectionModule
           availProducts={availProductList}
           remainingInventory={remainingInventory}
           updateCart={updatedCart}

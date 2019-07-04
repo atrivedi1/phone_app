@@ -1,7 +1,10 @@
 import React from 'react'
+
 import OrderForm from './OrderForm.js'
 import Notification from './Notification.js'
 // import TrackingView from './TrackingView' //Will add in eventually
+
+import helpers from './helpers'
 
 export default class OrderTrackingApp extends React.Component {
   constructor(props) {
@@ -25,8 +28,6 @@ export default class OrderTrackingApp extends React.Component {
       notificationMessage: ""
     }
 
-    this.hospitalInfoByName = this.hospitalInfoByName.bind(this);
-    this.inventoryInfoByProduct = this.inventoryInfoByProduct.bind(this);
     this.selectedHospital = this.selectedHospital.bind(this);
     this.updatedCart = this.updatedCart.bind(this);
     this.submittedOrder = this.submittedOrder.bind(this);
@@ -41,8 +42,8 @@ export default class OrderTrackingApp extends React.Component {
 
   //APP DATA HELPER FUNCTIONS
   async refreshAppData(){
-    const hospitalData = await this.hospitalInfoByName();
-    const currentInventoryData = await this.inventoryInfoByProduct();
+    const hospitalData = await helpers.fetchAndGroup('hospitals');
+    const currentInventoryData = await helpers.fetchAndGroup('inventory');
     const projectedInventoryData = {};
 
     for(let product in currentInventoryData) {
@@ -62,36 +63,6 @@ export default class OrderTrackingApp extends React.Component {
   }
 
   //HOSPITAL HELPER FUNCS
-  //fetch hospital data and turn into object for easier lookup
-  async hospitalInfoByName() {
-    const hospitalData = await this.fetchHospitalData()
-    const hospitalMap = {}
-
-    for (let hospital of hospitalData) {
-      let currHospital = hospital.name;
-
-      let currHospitalInfo = {
-        id: hospital.id,
-        flight_time_s: hospital.flight_time_s
-      }
-
-      hospitalMap[currHospital] = currHospitalInfo
-    }
-
-    return hospitalMap;
-  }
-
-  //fetch hospital data from simulator
-  fetchHospitalData() {
-    return fetch('/hospitals')
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        return err;
-      })
-  }
-
   //set hospital names/default selected hospital name on state
   setAdditionalHospitalInfoOnState() {
     const sortedHospitalNames = Object.keys(this.state.hospitals).sort();
@@ -112,37 +83,6 @@ export default class OrderTrackingApp extends React.Component {
   }
 
   //INVENTORY HELPER FUNCS
-  //fetch inventory data and convert to object for easier lookup
-  async inventoryInfoByProduct() {
-    const inventoryData = await this.fetchInventoryData();
-    const inventoryMap = {}
-
-    for (let item of inventoryData) {
-      let currProduct = item.product;
-
-      let currProductInfo = {
-        id: item.id,
-        mass_g: item.mass_g,
-        quantity: item.quantity
-      }
-
-      inventoryMap[currProduct] = currProductInfo
-    }
-
-    return inventoryMap;
-  }
-
-  //fetch inventory data from simulator
-  fetchInventoryData() {
-    return fetch('/inventory')
-      .then((res) => {
-        return res.json()
-      })
-      .catch((err) => {
-        return err;
-      })
-  }
-
   //set sorted list of avail products on state
   determineAvailProducts() {
     //assuming that product is no longer selectable if already in cart (since there are no qty restrictions at the moment)
@@ -214,11 +154,20 @@ export default class OrderTrackingApp extends React.Component {
   //sends order to backend and refreshes app data w/ latest inventory info
   async sendOrder(order) {
     try{
-      await this.postOrder(order)
+      await helpers.post(order, 'order')
     }
     catch(e) {
+      this.setState({
+        notificationMessage: "Unfortunately there was a problem with your order. Please contact us at 0788312345"
+      })
+
       throw new Error(`unable to send order due to: ${e}`)
     }
+
+    //confirm that order sent successfully
+    this.setState({
+      notificationMessage: "Your order was submitted successfully! You should receive your package(s) soon!"
+    });
     
     //update app data with updated inventory
     this.refreshAppData();
@@ -228,29 +177,6 @@ export default class OrderTrackingApp extends React.Component {
     form[0].reset();
 
     return;
-  }
-
-  //helper to send data to backend
-  postOrder(order) {
-    return fetch('/order', {
-        method: 'post',
-        body:    order,
-        headers: { 'Content-Type': 'application/json' },
-    })
-    .then((res) => {
-      this.setState({
-        notificationMessage: "Your order was submitted successfully! You should receive your package(s) soon!"
-      });
-
-      return res.json();
-    })
-    .catch((err) => {
-      this.setState({
-        notificationMessage: "Unfortunately there was a problem with your order. Please contact us at 0788312345"
-      })
-
-      return err;
-    })
   }
 
   //RENDERING HELPER FUNCS
