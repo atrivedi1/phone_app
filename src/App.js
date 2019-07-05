@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 
-import OrderTrackingApp from './components/OrderTrackingApp.js'
+import PhoneApp from './components/PhoneApp.js'
 
 function App() {
   return (
     <div className="App">
-      <OrderTrackingApp />
+      <PhoneApp />
     </div>
   );
 }
